@@ -1,15 +1,30 @@
 #include "get_next_line_bonus.h"
-#include "get_next_line.h"
 #include <stdio.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-int main ()
+int main(void)
 {
-    int fd = open("file.txt",O_RDONLY);
-    char *str = get_next_line(fd);
-    printf("%s", str);
-    str = get_next_line(fd);
-    printf("%s",str);
-    free(str);
-    return 0;
-}
+    int fd1, fd2;
+    char *line1;
+    char *line2;
 
+    fd1 = open("file.txt", O_RDONLY);
+    fd2 = open("tester.txt", O_RDONLY);
+
+    if (fd1 < 0 || fd2 < 0)
+    {
+        perror("open");
+        return (1);
+    }
+
+    printf("📄 Lecture alternée entre file.txt et tester.txt :\n\n");
+
+        line1 = get_next_line(fd1);
+        line2 = get_next_line(fd2);
+        printf("%s", line1);
+         printf("%s", line2);
+        
+
+}
